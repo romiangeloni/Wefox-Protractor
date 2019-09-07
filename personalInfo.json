@@ -1,0 +1,16 @@
+{
+	"name": {
+		"first_name": "",
+		"last_name": ""
+	},
+	"address": {
+		"street": "",
+		"CP": "",
+		"city": ""
+	},
+	"dateOfBirth": "",
+	"account": {
+		"email": "",
+		"phoneNumber": ""
+	}
+}
