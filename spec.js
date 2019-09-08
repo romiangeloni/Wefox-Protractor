@@ -4,16 +4,17 @@ describe('Protractor Demo Wefox', function() {
         browser.get('https://my.wefox.de/login');
         browser.sleep(6000);
         browser.wait(browser.getTitle(),25000);
-        if (expect(browser.getTitle()).toEqual('Anmeldung – wefox')) {
+        if (expect(browser.getTitle() === 'Anmeldung – wefox').toBe(false)) {
             console.error('The page is not loaded!: ');
+            fail();
         }
     });
     it('When the user can login and access to agent image', function() {
         browser.driver.wait(function () {
             return element(by.id('user_name'));
         });
-        var testData = require('./testData.json');
-        browser.sleep(6000);
+        //var testData = require('./testData.json');
+        browser.sleep(4000);
         //element(by.id('user_name')).sendKeys(testData.username);
         element(by.id('user_name')).sendKeys("aqawefox+testtecnico@wefoxgroup.com");
         browser.driver.wait(function () {
@@ -25,7 +26,10 @@ describe('Protractor Demo Wefox', function() {
             return element(by.className('wf-c-btn--primary wf-c-btn--block-xs'));
         });
         element(by.className('wf-c-btn--primary wf-c-btn--block-xs')).click();
-        
+        if (expect(element(by.id('wf-c-sidebar-nav__item')))){
+            console.error('The broker page is not loaded!');
+            fail();
+        }
     });
    it('Then the user can access to contracts section', function() {
         browser.driver.wait(function () {
@@ -57,15 +61,13 @@ describe('Protractor Demo Wefox', function() {
         browser.sleep(6000);
         element(by.className('wf-c-card wf-u-h-100')).click();
         browser.sleep(6000);
-        const inputs = browser.querySelectorAll('.wf-c-field__container input');
+        const inputs = browser.executeScript('document.querySelectorAll(".wf-c-field__container input")');
         let jsonData = {};
-        inputs.forEach((input) => {
-            jsonData[input.name] = input.value;
-        });
-        console.log(jsonData);
-        //var personalInfo = require('./personalInfo.json');
-        //personalInfo.name.first_name = element(by.id('first_name')).getText();
-        //console.log(personalInfo);
+        //inputs.forEach((input) => {
+          //  jsonData[input.name] = input.value;
+        //});
+     
+        console.log(inputs);
     });
     it('And the user can Logout', function() {
         browser.driver.wait(function () {
